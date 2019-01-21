@@ -43,7 +43,6 @@ namespace BetterLineRenderer
 
 			pathLength = SetPathLength();
 
-
 			segLengths = GetSegmentLengths();
 			timePerSegment = GetSegmentTimes(segLengths);
 
@@ -148,6 +147,7 @@ namespace BetterLineRenderer
 
 					GraphKeyFrame frame = allSpawnPositions.Dequeue();
 					GameObject go = Instantiate(frame.obj, frame.pos, Quaternion.identity);
+					go.GetComponent<Renderer>().material.color = color;
 					go.transform.parent = transform;
 				}
 

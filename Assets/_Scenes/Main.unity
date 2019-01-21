@@ -291,6 +291,11 @@ MonoBehaviour:
     type: 2}
   dashedPrefab: {fileID: 0}
   namedPointsPrefab: {fileID: 0}
+  is3D: 1
+  drawTime: 5
+  distBetweenDots: 0.2
+  pathLength: 10
+  pathcolor: {r: 0, g: 1, b: 0.7103448, a: 0}
 --- !u!4 &790911089
 Transform:
   m_ObjectHideFlags: 0
