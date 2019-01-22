@@ -286,14 +286,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5bf080a5d654df40ab7f8cbc10884ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linePrefab: {fileID: 0}
-  dottedPrefab: {fileID: 114606309390793752, guid: da1027be44da3eb459dc435cab2e19a1,
+  linePrefab: {fileID: 114709448615987514, guid: 5b64ce18be2b2e641b63f3699491b16c,
     type: 2}
-  dashedPrefab: {fileID: 0}
+  dottedPrefab: {fileID: 114641663980186600, guid: 44e061b3a67ef204ea0d30c4c99fbab7,
+    type: 2}
+  dashedPrefab: {fileID: 114019796182011242, guid: abf2b533ad409f04b82d4bf56d15ad72,
+    type: 2}
   namedPointsPrefab: {fileID: 0}
-  is3D: 1
-  drawTime: 5
-  distBetweenDots: 0.2
+  markedCornerPrefab: {fileID: 114066539349584638, guid: 5a6e7f079185de6458cbe2243375a8ad,
+    type: 2}
+  is3D: 0
+  drawTime: 2
+  distBetweenDots: 0.1
   pathLength: 10
   pathcolor: {r: 0, g: 1, b: 0.7103448, a: 0}
 --- !u!4 &790911089
