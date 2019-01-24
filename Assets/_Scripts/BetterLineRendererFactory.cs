@@ -7,73 +7,36 @@ namespace BetterLineRenderer
     public class BetterLineRendererFactory : MonoBehaviour
     {
         [SerializeField]
-        private BetterLineRenderer linePrefab, dottedPrefab, dashedPrefab, namedPointsPrefab, markedCornerPrefab;
+		protected BetterLineRenderer linePrefab, dottedPrefab, dashedPrefab, namedPointsPrefab, markedCornerPrefab;
 
-        private Dictionary<string, BetterLineRenderer> pathDictionary = new Dictionary<string, BetterLineRenderer>();
+        protected Dictionary<string, BetterLineRenderer> pathDictionary = new Dictionary<string, BetterLineRenderer>();
 
+		public BetterLineRendererFactory instance;
 
-		public bool is3D = true;
-		public float drawTime = 5f, distBetweenDots = 0.2f;
-		public int pathLength = 10;
-		public Color pathcolor;
-
-		[ContextMenu("Draw test path")]
-		public void DrawTestPath()
+		private void Awake()
 		{
-			string n = "testPath" + pathDictionary.Count;
-			pathDictionary.Add(n, StartNewPath("testPath" + pathDictionary.Count, GenerateRandomPath(pathLength), drawTime, distBetweenDots, new ColorPathPair(pathcolor, LinePathType.line)));
-			pathDictionary[n].StartPath(drawTime);
-
-		}
-
-		[ContextMenu("Draw test 2path")]
-		public void DrawTestPath2()
-		{
-			LinePathType l;
-			Vector3[] gennedPath = GenerateRandomPath(pathLength);
-			for(int i = 0; i < 2; i++)
+			if(instance == null)
 			{
-				string n = "testPath" + pathDictionary.Count;
-				if(i == 0)
-				{
-					l = LinePathType.dashed;
-					pathDictionary.Add(n, StartNewPath("testPath" + pathDictionary.Count, gennedPath, drawTime, distBetweenDots, new ColorPathPair(Color.green, l)));
-					pathDictionary[n].StartPath(drawTime);
-				}
-				else
-				{
-					l = LinePathType.markedCorners;
-					pathDictionary.Add(n, StartNewPath("testPath" + pathDictionary.Count, gennedPath, drawTime, new ColorPathPair(Color.red, l)));
-					pathDictionary[n].StartPath(drawTime);
-				}
+				instance = this;
+			}else
+			{
+				Debug.LogError("Too many line factories in scene. Disabling BetterLineFactory instance on" + name);
 			}
 		}
 
-		private Vector3[] GenerateRandomPath(int pointAmt)
-        {
-            Vector3[] returnVals = new Vector3[pointAmt];
 
-            returnVals[0] = Vector3.zero;
-
-            for (int i = 1; i < pointAmt; i++)
-            {
-                returnVals[i] = returnVals[i - 1] + new Vector3(Random.Range(0f, 3f), Random.Range(0f, 3f), (is3D) ? Random.Range(0f, 3f) : 0);
-			}
-
-            return returnVals;
-        }
 
 		// Generates and draws a new line.
-		private BetterLineRenderer StartNewPath(string pathName, Vector3[] pathNodes, float drawDuration, ColorPathPair pathPair)
+		public BetterLineRenderer StartNewPath(string pathName, Vector3[] pathNodes, float drawDuration, ColorPathPair pathPair)
 		{
 			BetterLineRenderer renderer = null;
 			switch(pathPair.pathType)
 			{
 				
-				case LinePathType.namedPoints:
-					renderer = Instantiate(namedPointsPrefab.gameObject, pathNodes[0], Quaternion.identity).GetComponent<BetterLineRenderer>();
-					renderer.SetupPath(pathName, pathNodes, drawDuration, pathPair.color);
-					break;
+				//case LinePathType.namedPoints:
+				//	renderer = Instantiate(namedPointsPrefab.gameObject, pathNodes[0], Quaternion.identity).GetComponent<BetterLineRenderer>();
+				//	renderer.SetupPath(pathName, pathNodes, drawDuration, pathPair.color);
+				//	break;
 				case LinePathType.markedCorners:
 					renderer = Instantiate(markedCornerPrefab.gameObject, pathNodes[0], Quaternion.identity).GetComponent<BetterLineRenderer>();
 					renderer.SetupPath(pathName, pathNodes, drawDuration, pathPair.color);
@@ -85,7 +48,7 @@ namespace BetterLineRenderer
 			return renderer;
 		}
 
-		private BetterLineRenderer StartNewPath(string pathName, Vector3[] pathNodes, float drawDuration, float dotDist, ColorPathPair pathPair)
+		public BetterLineRenderer StartNewPath(string pathName, Vector3[] pathNodes, float drawDuration, float dotDist, ColorPathPair pathPair)
 		{
 			BetterLineRenderer renderer = null;
 			switch(pathPair.pathType)

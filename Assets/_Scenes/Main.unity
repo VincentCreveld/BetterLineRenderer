@@ -283,7 +283,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 790911087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5bf080a5d654df40ab7f8cbc10884ae, type: 3}
+  m_Script: {fileID: 11500000, guid: 38a91788f95525149a01623d03611e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   linePrefab: {fileID: 114709448615987514, guid: 5b64ce18be2b2e641b63f3699491b16c,
@@ -295,11 +295,11 @@ MonoBehaviour:
   namedPointsPrefab: {fileID: 0}
   markedCornerPrefab: {fileID: 114066539349584638, guid: 5a6e7f079185de6458cbe2243375a8ad,
     type: 2}
-  is3D: 0
-  drawTime: 2
-  distBetweenDots: 0.1
+  is3D: 1
+  drawTime: 5
+  distBetweenDots: 0.2
   pathLength: 10
-  pathcolor: {r: 0, g: 1, b: 0.7103448, a: 0}
+  pathcolor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &790911089
 Transform:
   m_ObjectHideFlags: 0
