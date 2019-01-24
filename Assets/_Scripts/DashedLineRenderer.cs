@@ -31,9 +31,9 @@ namespace BetterLineRenderer
 		{
 			// This block draws the nodes at their appropriate location at the correct timing.
 			GraphKeyFrame frame = allSpawnPositions.Dequeue();
-			GameObject go = Instantiate(frame.obj, frame.pos, frame.rot);
+			GameObject go = Instantiate(frame.obj, frame.pos, frame.rot, transform);
 			go.GetComponentInChildren<Renderer>().material.color = color;
-			go.transform.parent = transform;
+			go.transform.localScale = new Vector3(transform.parent.localScale.x * go.transform.localScale.x, transform.parent.localScale.y * go.transform.localScale.y, transform.parent.localScale.z * go.transform.localScale.z);
 		}
 	}
 }

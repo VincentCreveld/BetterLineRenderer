@@ -24,24 +24,36 @@ namespace BetterLineRenderer
 
 		protected bool initialised = false;
 
-		public virtual void SetupPath(string pName, Vector3[] pathNodes, float drawDuration, Color c, float distBetweenUnits = -1)
+		public virtual void SetupPath(string pName, Vector3[] pathNodes, Transform p, float drawDuration, Color c, float distBetweenUnits = -1)
 		{
 			pathName = pName;
 			path = pathNodes;
 			duration = drawDuration;
 			color = c;
+
+			transform.parent = p;
+			transform.localScale = new Vector3(1, 1, 1);
+
+			ScaleLocalPositions();
+
 			pathLength = SetPathLength();
 			segLengths = GetSegmentLengths();
 			timePerSegment = GetSegmentTimes(segLengths);
 			SetSpawnPositions();
 		}
 
-		protected virtual void SetSpawnPositions() { }
-		// Adds up all the previous time segments and returns the sum.
-		
+		private void ScaleLocalPositions()
+		{ 
+			for(int i = 0; i < path.Length; i++)
+			{
+				path[i] *= transform.parent.localScale.x;
+			}
+		}
+
+		protected virtual void SetSpawnPositions() { /* Should be empty. */}
 
 		// Begins the drawing of the line. Called from the factory.
-		public virtual void StartPath(float pathDuration)
+		public virtual void StartPath()
 		{
 			if(!initialised)
 				return;
@@ -75,9 +87,9 @@ namespace BetterLineRenderer
 		{
 			// This block draws the nodes at their appropriate location at the correct timing.
 			GraphKeyFrame frame = allSpawnPositions.Dequeue();
-			GameObject go = Instantiate(frame.obj, frame.pos, frame.obj.transform.rotation);
+			GameObject go = Instantiate(frame.obj, frame.pos, frame.obj.transform.rotation, transform);
 			go.GetComponentInChildren<Renderer>().material.color = color;
-			go.transform.parent = transform;
+			go.transform.localScale = new Vector3(transform.parent.localScale.x * go.transform.localScale.x, transform.parent.localScale.y * go.transform.localScale.y, transform.parent.localScale.z * go.transform.localScale.z);
 		}
 
 		// Simple add function that makes a legible number out of all the segments.

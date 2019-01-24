@@ -16,16 +16,18 @@ namespace BetterLineRenderer
 
 		private GameObject[] lineSegments;
 
-		public override void SetupPath(string pName, Vector3[] pathNodes, float drawDuration, Color c, float distBetweenUnits = -1)
+		public override void SetupPath(string pName, Vector3[] pathNodes,Transform p, float drawDuration, Color c, float distBetweenUnits = -1)
 		{
 			if(distBetweenUnits == -1)
 				segmentResolution = 0;
 			else
 				segmentResolution = distBetweenUnits;
 
+			segmentResolution *= p.transform.localScale.x;
+
 			lineSegments = new GameObject[pathNodes.Length];
 
-			base.SetupPath(pName, pathNodes, drawDuration, c, distBetweenUnits);
+			base.SetupPath(pName, pathNodes, p, drawDuration, c, distBetweenUnits);
 		}
 
 		protected override void SetSpawnPositions()
@@ -138,9 +140,9 @@ namespace BetterLineRenderer
 		{
 			// This block draws the nodes at their appropriate location at the correct timing.
 			GraphKeyFrame frame = allSpawnPositions.Dequeue();
-			currentWorkedOnSegment = Instantiate(frame.obj, frame.pos, frame.rot);
-			currentWorkedOnSegment.GetComponentInChildren<Renderer>().material.color = color;
-			currentWorkedOnSegment.transform.parent = transform;
+			GameObject go = Instantiate(frame.obj, frame.pos, frame.obj.transform.rotation, transform);
+			go.GetComponentInChildren<Renderer>().material.color = color;
+			go.transform.localScale = new Vector3(transform.parent.localScale.x * go.transform.localScale.x, transform.parent.localScale.y * go.transform.localScale.y, transform.parent.localScale.z * go.transform.localScale.z);
 		}
 
 		private void SetScaleAtTime()

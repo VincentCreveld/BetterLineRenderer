@@ -9,14 +9,16 @@ namespace BetterLineRenderer
 		protected GameObject dotPrefab;
 		private float unitDist;
 
-		public override void SetupPath(string pName, Vector3[] pathNodes, float drawDuration, Color c, float distBetweenUnits = -1)
+		public override void SetupPath(string pName, Vector3[] pathNodes, Transform p,float drawDuration, Color c, float distBetweenUnits = -1)
 		{
 			if(distBetweenUnits == -1)
 				unitDist = 0;
 			else
 				unitDist = distBetweenUnits;
 
-			base.SetupPath(pName, pathNodes, drawDuration, c, distBetweenUnits);
+			unitDist *= p.transform.localScale.x;
+
+			base.SetupPath(pName, pathNodes, p, drawDuration, c, distBetweenUnits);
 		}
 
 		protected override void SetSpawnPositions()

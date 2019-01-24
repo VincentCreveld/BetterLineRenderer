@@ -24,22 +24,20 @@ namespace BetterLineRenderer
 			}
 		}
 
-
-
 		// Generates and draws a new line.
-		public BetterLineRenderer StartNewPath(string pathName, Vector3[] pathNodes, float drawDuration, ColorPathPair pathPair)
+		public BetterLineRenderer StartNewPath(string pathName, Vector3[] pathNodes, Transform p, float drawDuration, ColorPathPair pathPair)
 		{
 			BetterLineRenderer renderer = null;
 			switch(pathPair.pathType)
 			{
-				
+
 				//case LinePathType.namedPoints:
 				//	renderer = Instantiate(namedPointsPrefab.gameObject, pathNodes[0], Quaternion.identity).GetComponent<BetterLineRenderer>();
-				//	renderer.SetupPath(pathName, pathNodes, drawDuration, pathPair.color);
+				//	renderer.SetupPath(pathName, pathNodes, p, drawDuration, pathPair.color);
 				//	break;
 				case LinePathType.markedCorners:
 					renderer = Instantiate(markedCornerPrefab.gameObject, pathNodes[0], Quaternion.identity).GetComponent<BetterLineRenderer>();
-					renderer.SetupPath(pathName, pathNodes, drawDuration, pathPair.color);
+					renderer.SetupPath(pathName, pathNodes, p, drawDuration, pathPair.color);
 					break;
 				default:
 					Debug.LogError("You're using the wrong factory function to draw that line. Try another function.");
@@ -48,22 +46,22 @@ namespace BetterLineRenderer
 			return renderer;
 		}
 
-		public BetterLineRenderer StartNewPath(string pathName, Vector3[] pathNodes, float drawDuration, float dotDist, ColorPathPair pathPair)
+		public BetterLineRenderer StartNewPath(string pathName, Vector3[] pathNodes, Transform p, float drawDuration, float dotDist, ColorPathPair pathPair)
 		{
 			BetterLineRenderer renderer = null;
 			switch(pathPair.pathType)
 			{
 				case LinePathType.dotted:
 					renderer = Instantiate(dottedPrefab.gameObject, pathNodes[0], Quaternion.identity).GetComponent<BetterLineRenderer>();
-					renderer.SetupPath(pathName, pathNodes, drawDuration, pathPair.color, dotDist);
+					renderer.SetupPath(pathName, pathNodes, p, drawDuration, pathPair.color, dotDist);
 					break;
 				case LinePathType.dashed:
 					renderer = Instantiate(dashedPrefab.gameObject, pathNodes[0], Quaternion.identity).GetComponent<BetterLineRenderer>();
-					renderer.SetupPath(pathName, pathNodes, drawDuration, pathPair.color, dotDist);
+					renderer.SetupPath(pathName, pathNodes, p, drawDuration, pathPair.color, dotDist);
 					break;
 				case LinePathType.line:
 					renderer = Instantiate(linePrefab.gameObject, pathNodes[0], Quaternion.identity).GetComponent<BetterLineRenderer>();
-					renderer.SetupPath(pathName, pathNodes, drawDuration, pathPair.color, dotDist);
+					renderer.SetupPath(pathName, pathNodes, p, drawDuration, pathPair.color, dotDist);
 					break;
 				default:
 					Debug.LogError("You're using the wrong factory function to draw that line. Try another function.");

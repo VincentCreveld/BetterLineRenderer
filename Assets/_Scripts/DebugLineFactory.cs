@@ -6,7 +6,8 @@ namespace BetterLineRenderer
 {
 	public class DebugLineFactory : BetterLineRendererFactory
 	{
-
+		public Transform parentObj;
+		public LinePathType pathType;
 		public bool is3D = true;
 		public float drawTime = 5f, distBetweenDots = 0.2f;
 		public int pathLength = 10;
@@ -16,8 +17,8 @@ namespace BetterLineRenderer
 		public void DrawTestPath()
 		{
 			string n = "testPath" + pathDictionary.Count;
-			pathDictionary.Add(n, StartNewPath("testPath" + pathDictionary.Count, GenerateRandomPath(pathLength), drawTime, distBetweenDots, new ColorPathPair(pathcolor, LinePathType.line)));
-			pathDictionary[n].StartPath(drawTime);
+			pathDictionary.Add(n, StartNewPath("testPath" + pathDictionary.Count, GenerateRandomPath(pathLength), parentObj, drawTime, distBetweenDots, new ColorPathPair(pathcolor, pathType)));
+			pathDictionary[n].StartPath();
 
 		}
 
@@ -32,14 +33,14 @@ namespace BetterLineRenderer
 				if (i == 0)
 				{
 					l = LinePathType.dashed;
-					pathDictionary.Add(n, StartNewPath("testPath" + pathDictionary.Count, gennedPath, drawTime, distBetweenDots, new ColorPathPair(Color.green, l)));
-					pathDictionary[n].StartPath(drawTime);
+					pathDictionary.Add(n, StartNewPath("testPath" + pathDictionary.Count, gennedPath, parentObj, drawTime, distBetweenDots, new ColorPathPair(Color.green, l)));
+					pathDictionary[n].StartPath();
 				}
 				else
 				{
 					l = LinePathType.markedCorners;
-					pathDictionary.Add(n, StartNewPath("testPath" + pathDictionary.Count, gennedPath, drawTime, new ColorPathPair(Color.red, l)));
-					pathDictionary[n].StartPath(drawTime);
+					pathDictionary.Add(n, StartNewPath("testPath" + pathDictionary.Count, gennedPath, parentObj, drawTime, new ColorPathPair(Color.red, l)));
+					pathDictionary[n].StartPath();
 				}
 			}
 		}
