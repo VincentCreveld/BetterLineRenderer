@@ -11,7 +11,7 @@ namespace BetterLineRenderer
 
         protected Dictionary<string, BetterLineRenderer> pathDictionary = new Dictionary<string, BetterLineRenderer>();
 
-		public BetterLineRendererFactory instance;
+		public static BetterLineRendererFactory instance;
 
 		private void Awake()
 		{
