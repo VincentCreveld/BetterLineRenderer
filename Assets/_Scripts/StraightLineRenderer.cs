@@ -148,7 +148,14 @@ namespace BetterLineRenderer
 		private void SetScaleAtTime()
 		{
 			GraphKeyFrameScale frame = scalesAtTimeQueue.Dequeue();
-			currentWorkedOnSegment.transform.localScale = new Vector3(currentWorkedOnSegment.transform.localScale.x, currentWorkedOnSegment.transform.localScale.y, frame.scale);
+
+			currentWorkedOnSegment.transform.localScale = new Vector3(currentWorkedOnSegment.transform.localScale.x, currentWorkedOnSegment.transform.localScale.y, frame.scale * 5);
+
+			//float x = (currentWorkedOnSegment.transform.localScale.x * currentWorkedOnSegment.transform.lossyScale.x > 0) ? currentWorkedOnSegment.transform.localScale.x * currentWorkedOnSegment.transform.lossyScale.x : 0;
+			//float y = (currentWorkedOnSegment.transform.localScale.y * currentWorkedOnSegment.transform.lossyScale.y > 0) ? currentWorkedOnSegment.transform.localScale.y * currentWorkedOnSegment.transform.lossyScale.y : 0;
+			//float z = (currentWorkedOnSegment.transform.localScale.z * currentWorkedOnSegment.transform.lossyScale.z > 0) ? currentWorkedOnSegment.transform.localScale.z * currentWorkedOnSegment.transform.lossyScale.z : 0;
+
+			//currentWorkedOnSegment.transform.localScale = new Vector3(x, y, z);
 		}
 	}
 }

@@ -122,7 +122,7 @@ namespace BetterLineRenderer
 
 		public override string ToString()
 		{
-			string s = "Time: " + placementTime + " Scale: " + scale;
+			string s = "Time: " + placementTime + " Scale: " + scale + " Index: " + index;
 			return s;
 		}
 	}
